@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2017 - present
  * LaravelGoogleRecaptcha - ReCaptchaServiceProvider.php
@@ -40,6 +39,7 @@ class ReCaptchaServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/recaptcha.php' => config_path('recaptcha.php'),
         ], 'config');
+
     }
 
     /**
@@ -47,15 +47,11 @@ class ReCaptchaServiceProvider extends ServiceProvider
      */
     public function addValidationRule()
     {
-        $message = null;
 
-        if (!config('recaptcha.empty_message')) {
-            $message = trans(config('recaptcha.error_message_key'));
-        }
         Validator::extendImplicit(recaptchaRuleName(), function ($attribute, $value) {
 
             return app('recaptcha')->validate($value);
-        }, $message);
+		}, trans('validation.recaptcha'));
     }
 
     /**
@@ -67,8 +63,7 @@ class ReCaptchaServiceProvider extends ServiceProvider
     {
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/recaptcha.php',
-            'recaptcha'
+            __DIR__ . '/../config/recaptcha.php', 'recaptcha'
         );
 
         $this->registerReCaptchaBuilder();
@@ -114,10 +109,10 @@ class ReCaptchaServiceProvider extends ServiceProvider
             $recaptcha_class = '';
 
             switch (config('recaptcha.version')) {
-                case 'v3':
+                case 'v3' :
                     $recaptcha_class = ReCaptchaBuilderV3::class;
                     break;
-                case 'v2':
+                case 'v2' :
                     $recaptcha_class = ReCaptchaBuilderV2::class;
                     break;
                 case 'invisible':
@@ -126,6 +121,8 @@ class ReCaptchaServiceProvider extends ServiceProvider
             }
 
             return new $recaptcha_class(config('recaptcha.api_site_key'), config('recaptcha.api_secret_key'));
+
         });
     }
+
 }

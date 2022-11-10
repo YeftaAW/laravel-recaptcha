@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2017 - present
  * LaravelGoogleRecaptcha - recaptcha.php
@@ -51,10 +50,9 @@ return [
     /**
      *
      * IP addresses for which validation will be skipped
-     * IP/CIDR netmask eg. 127.0.0.0/24, also 127.0.0.1 is accepted and /32 assumed
      *
      */
-    'skip_ip'                      => env('RECAPTCHA_SKIP_IP', []),
+    'skip_ip'                      => [],
 
     /**
      *
@@ -111,24 +109,6 @@ return [
      *
      */
     'api_domain'                   => 'www.google.com',
-
-    /**
-     *
-     * Set `true` when the error message must be null
-     * @since v5.1.0
-     * Default false
-     *
-     */
-    'empty_message' => false,
-
-    /**
-     *
-     * Set either the error message or the errom message translation key
-     * @since v5.1.0
-     * Default 'validation.recaptcha'
-     *
-     */
-    'error_message_key' => 'validation.recaptcha',
 
     /**
      *

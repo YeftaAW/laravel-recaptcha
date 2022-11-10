@@ -51,11 +51,9 @@ class ReCaptchaBuilderInvisible extends ReCaptchaBuilder
 
         $tag_properties = '';
 
-        $properties = array_merge([
+        $properties = array_merge($properties, [
+            'data-sitekey'  => $this->api_site_key,
             'data-callback' => 'biscolabLaravelReCaptcha',
-        ], $properties, 
-        [
-            'data-sitekey'  => $this->api_site_key
         ]);
 
         if (empty($properties['class'])) {
